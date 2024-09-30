@@ -8,7 +8,7 @@ const Hero = () => {
           {/* Left Section */}
           <div className='flexColStart gap-12 max-md:order-2'>
               <div className='z-10 h-16 w-16 rounded-full bg-orange-400 absolute top-[17%] left-[25%]'/>
-              <h1 className='relative h1 font-semibold text-6xl leading-4rem z-20 max-xl:text-5xl max-lg:text-4xl'>Discover <br/> Jain Jakhotiya <br/> & Associates</h1>
+              <h1 className='relative h1 font-semibold text-6xl leading-4rem z-20 max-xl:text-5xl max-lg:text-4xl max-md:text-6xl max-sm:text-4xl'>Discover <br/> Jain Jakhotiya <br/> & Associates</h1>
             <div className='flexColStart max-2xl:hidden'>
               <span className=''>Elevate your growth with our tailored solutions and expert support.</span>
               <span className=''>We understand your unique challenges and are committed to your lasting success.</span>
