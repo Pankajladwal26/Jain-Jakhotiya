@@ -23,6 +23,8 @@ export default {
         text: "#777777",
         shadow: "0px 23px 21px -8px rgba(136, 160, 255, 0.25)",
         contentbg: "#f7f8f9",
+        footer: "#111111",
+        socials: "#999999",
       },
       spacing: {
         '10rem': '10rem',

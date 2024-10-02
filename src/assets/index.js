@@ -12,6 +12,8 @@ import Blog1 from "./Blog1.png";
 import Blog2 from "./Blog2.jpg";
 import pdfIcon from "./pdfIcon.png";
 import CompServices from "./CompServices.jpg";
+import Missionbg from "./Missionbg.jpg";
+import Performancebg from "./Performancebg.jpg";
 
 export {
     CALogo,
@@ -28,4 +30,6 @@ export {
     Blog2,
     pdfIcon,
     CompServices,
+    Missionbg,
+    Performancebg,
 };

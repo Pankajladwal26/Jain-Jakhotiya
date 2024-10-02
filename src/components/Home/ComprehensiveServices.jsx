@@ -1,10 +1,10 @@
 import React from 'react';
-import { CompServices } from '../assets';
+import { CompServices } from '../../assets';
 
 const ComprehensiveServices = () => {
   return (
     <div className='bg-contentbg flex justify-center items-center w-full mb-28'>
-        <div className='max-w-800px w-[70%] flex flex-row max-xl:flex-col max-xl:gap-12 gap-10 items-center'>
+        <div className='max-w-800px w-[70%] max-md:w-[90%] flex flex-row max-xl:flex-col max-xl:gap-12 gap-10 items-center'>
             <div className="w-1/2 max-xl:w-2/3 max-xl:h-1/3">
                 <img src={CompServices} alt="" className='w-full' />
             </div>

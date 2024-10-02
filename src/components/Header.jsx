@@ -46,11 +46,11 @@ const Header = () => {
           <div className='flex h-screen flex-col p-4 items-end gap-4 bg-navbarGradient border-l-2 border-customBlack pr-11'>
             <button onClick={toggleNavbar} className='self-end p-2 w-10 bg-black rounded mb-4 '><FontAwesomeIcon icon={faX} /></button>
             <Link to="/Jain-Jakhotiya/" className='nav-link mb-2 text-white text-2xl font-semibold'>Home</Link>
-            <Link to="/services" className='nav-link mb-2 text-white text-2xl font-semibold'>Services</Link>
-            <Link to="/blogs" className='nav-link mb-2 text-white text-2xl font-semibold'>Blogs</Link>
-            <Link to="/hub" className='nav-link mb-2 text-white text-2xl font-semibold'>Hub</Link>
-            <Link to="/clients" className='nav-link mb-2 text-white text-2xl font-semibold'>Our Clients</Link>
-            <Link to="/contact" className='nav-link mb-2 text-white text-2xl font-semibold'>Contact</Link>
+            <Link to="/Jain-Jakhotiya/services" className='nav-link mb-2 text-white text-2xl font-semibold'>Services</Link>
+            <Link to="/Jain-Jakhotiya/blogs" className='nav-link mb-2 text-white text-2xl font-semibold'>Blogs</Link>
+            <Link to="/Jain-Jakhotiya/hub" className='nav-link mb-2 text-white text-2xl font-semibold'>Hub</Link>
+            <Link to="/Jain-Jakhotiya/clients" className='nav-link mb-2 text-white text-2xl font-semibold'>Our Clients</Link>
+            <Link to="/Jain-Jakhotiya/contact" className='nav-link mb-2 text-white text-2xl font-semibold'>Contact</Link>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ const Header = () => {
             {dropdownHome && (
               <div className="absolute left-1/2 mt-2 w-48 bg-dropdown text-black rounded-lg shadow-lg z-10 pr-4 pl-4 pt-4 pb-2 transition-all duration-300 ease-in-out transform -translate-x-1/2 scale-100 opacity-100">
                 <div className="absolute left-1/2 -top-2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-dropdown transform -translate-x-1/2" />
-                <Link to="/aboutus" className="block py-2 px-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">About Us</Link>
+                <Link to="/Jain-Jakhotiya/aboutus" className="block py-2 px-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">About Us</Link>
               </div>
             )}
           </div>
@@ -82,7 +82,7 @@ const Header = () => {
             onMouseEnter={() => setDropdownServices(true)}
             onMouseLeave={() => setDropdownServices(false)}
           >
-            <Link to="/services" className="relative group">
+            <Link to="/Jain-Jakhotiya/services" className="relative group">
               <span className="relative inline-block">
                 Services
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
@@ -92,7 +92,7 @@ const Header = () => {
               <div className="absolute left-1/2 mt-2 w-64 bg-dropdown text-black rounded-lg shadow-lg z-10 pr-4 pl-4 pt-4 pb-2 transition-all duration-300 ease-in-out transform -translate-x-1/2 scale-100 opacity-100">
                 <div className="absolute left-1/2 -top-2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-dropdown transform -translate-x-1/2" />
                 {['Income Tax', 'Goods & Service Tax(GST)', 'Audit', 'Corporate Services', 'Value Added Tax(VAT)', 'Service Tax', 'Corporate Finance', 'Accounting Services', 'Benefits Of Outsourcing', 'Corporate Governance'].map((service) => (
-                  <Link key={service} to={`/services/${service.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')}`} className="block py-2 px-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">
+                  <Link key={service} to={`/Jain-Jakhotiya/services/${service.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')}`} className="block py-2 px-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">
                     {service}
                   </Link>
                 ))}
@@ -101,7 +101,7 @@ const Header = () => {
           </div>
 
           {['Blogs', 'Knowledge Hub', 'Our Clients', 'Contact'].map((link) => (
-            <Link key={link} to={`/${link.toLowerCase().replace(/\s+/g, '-')}`} className="relative group">
+            <Link key={link} to={`/Jain-Jakhotiya/${link.toLowerCase().replace(/\s+/g, '-')}`} className="relative group">
               <span className="relative inline-block">
                 {link}
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />

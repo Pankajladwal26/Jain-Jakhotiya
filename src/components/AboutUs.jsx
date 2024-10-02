@@ -1,14 +1,12 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowAltCircleRight } from '@fortawesome/free-solid-svg-icons';
 
 
 const AboutUs = () => {
   return (
     <div className='flex justify-center w-full'>
-        <div className='pt-4 max-w-800px w-[80%] flex flex-col gap-4 flex-wrap mb-16'>
+        <div className='pt-4 max-w-800px w-[70%] max-md:w-[90%] flex flex-col gap-4 flex-wrap mb-16'>
             <div className='self-center flex flex-col items-center justify-center mb-8'>
-                <h1 className='text-h2 font-semibold text-5xl self-start mb-6'>About Us</h1>
+                <h1 className='text-customBlack font-semibold text-5xl self-start mb-6'>About Us</h1>
                 <p className='text-lg text-text'>We are the leading professionals offering a wide range services since 2014. Providing services in 
                 the area of Audit & Assurance Services, Taxation, Legal and regulatory compliance services, Corporate advisory and international 
                 taxation services, Accountancy services, Project Appraisal & financing, Business advisory services. We are committed to serve with
@@ -24,7 +22,7 @@ const AboutUs = () => {
             </div>
 
             <div className='flex flex-col justify-center mb-8'>
-                <h1 className='text-h2 font-semibold text-3xl underline self-start mb-6'>CA. Madhusudan Jain</h1>
+                <h1 className='text-customBlack font-semibold text-3xl underline self-start mb-6'>CA. Madhusudan Jain</h1>
                 <p className='text-xl font-semibold text-text'>FCA, M.com B Com (Hons) </p>
                 <br />
                 <p className='text-lg text-text'>CA Madhusudan Jain is a Chartered Accountant and holding Certificate of Practice of The Institute of 
@@ -42,7 +40,7 @@ const AboutUs = () => {
             </div>
 
             <div className='flex flex-col justify-center mb-8'>
-                <h1 className='text-h2 font-semibold text-3xl underline self-start mb-6'>CA. Prashant B Jakhotiya</h1>
+                <h1 className='text-customBlack font-semibold text-3xl underline self-start mb-6'>CA. Prashant B Jakhotiya</h1>
                 <p className='text-xl font-semibold text-text'>B.C.A, ACA</p>
                 <br />
                 <p className='text-lg text-text'>CA. Prashant Jakhotiya is Associate member of the Institute of Chartered Accountants of India 
@@ -55,19 +53,49 @@ const AboutUs = () => {
             </div>
 
             <div className='mb-8'>
-                <h2 className='text-h2 font-bold text-4xl mb-4'>Objective</h2>
+                <h2 className='text-customBlack font-bold text-4xl mb-4'>Objective</h2>
                 <p className='text-text text-xl mb-2'>All actions of the organization are guided by the well-defined set of objectives. The objectives include the following:</p>
                 <ul className='text-text text-lg list-none ml-2 gap-2'>
-                    <li><span><FontAwesomeIcon icon={faArrowAltCircleRight} className='mr-4' color='#1f3e72'/></span>To transform our knowledge and competence into competitive advantage for our clients.</li>
-                    <li><span><FontAwesomeIcon icon={faArrowAltCircleRight} className='mr-4' color='#1f3e72'/></span>To offer quality services with high integrity, dedication, sincerity, expertise and professionalism.</li>
-                    <li><span><FontAwesomeIcon icon={faArrowAltCircleRight} className='mr-4' color='#1f3e72'/></span>To help our clients to fulfill legal compliance applicable to the entity.</li>
-                    <li><span><FontAwesomeIcon icon={faArrowAltCircleRight} className='mr-4' color='#1f3e72'/></span>To offer personalized services that takes into account all the relevant details and the specific requirements of the clients.</li>
-                    <li><span><FontAwesomeIcon icon={faArrowAltCircleRight} className='mr-4' color='#1f3e72'/></span>To enable clients to make sound informed decisions.</li>
+                <li className='flex gap-4 items-center'>
+                    <span>
+                        <div className='flex flex-col justify-center items-start mt-3 gap-[6px] mb-3'>
+                            <span className='block h-[1px] w-10 bg-customBlack'></span>
+                            <span className='block h-[1px] w-6 bg-customBlack'></span>
+                        </div>
+                    </span>To transform our knowledge and competence into competitive advantage for our clients.</li>
+                <li className='flex gap-4 items-center'>
+                    <span>
+                        <div className='flex flex-col justify-center items-start mt-3 gap-[6px] mb-3'>
+                            <span className='block h-[1px] w-10 bg-customBlack'></span>
+                            <span className='block h-[1px] w-6 bg-customBlack'></span>
+                        </div>
+                    </span>To offer quality services with high integrity, dedication, sincerity, expertise and professionalism.</li>
+                <li className='flex gap-4 items-center'>
+                    <span>
+                    <div className='flex flex-col justify-center items-start mt-3 gap-[6px] mb-3'>
+                            <span className='block h-[1px] w-10 bg-customBlack'></span>
+                            <span className='block h-[1px] w-6 bg-customBlack'></span>
+                        </div>
+                    </span>To help our clients to fulfill legal compliance applicable to the entity.</li>
+                <li className='flex gap-4 items-center'>
+                    <span>
+                    <div className='flex flex-col justify-center items-start mt-3 gap-[6px] mb-3'>
+                            <span className='block h-[1px] w-10 bg-customBlack'></span>
+                            <span className='block h-[1px] w-6 bg-customBlack'></span>
+                        </div>
+                    </span>To offer personalized services that takes into account all the relevant details and the specific requirements of the clients.</li>
+                <li className='flex gap-4 items-center'>
+                    <span>
+                    <div className='flex flex-col justify-center items-start mt-3 gap-[6px] mb-3'>
+                            <span className='block h-[1px] w-10 bg-customBlack'></span>
+                            <span className='block h-[1px] w-6 bg-customBlack'></span>
+                        </div>
+                    </span>To enable clients to make sound informed decisions.</li>
                 </ul>
             </div>
 
             <div className='mb-8'>
-                <h2 className='text-h2 font-bold text-4xl mb-4'>Resources and Infrastructure</h2>
+                <h2 className='text-customBlack font-bold text-4xl mb-4'>Resources and Infrastructure</h2>
                 <ul className='text-text text-lg list-none ml-2 flex flex-col gap-4'>
                     <li><span className='font-semibold underline text-2xl'>Internal Team: </span>Comprises of mostly experienced graduates and post graduates. The firm has an internal team size of around 10 employees.</li>
                     <li><span className='font-semibold underline text-2xl'>Infrastructure: </span>The firm has three offices strategically located in the Pune and PCMC areas. Both these offices are well equipped with workstations, power backups, Internet 
@@ -79,7 +107,7 @@ const AboutUs = () => {
                 </ul>
             </div>
 
-            <p className='text-2xl text-text font-medium'>Slogan of our Firm is that <span className='text-customBlack'>"WE HELP YOUR BUSINESS GROW"</span> We manage our team in such a way that our clients shall build their business and grow their wealth. So 'Moto' is our strengths and yours numbers which increase your bottom line. </p>
+            <p className='text-xl text-text font-medium'>Slogan of our Firm is that <span className='text-black'>"WE HELP YOUR BUSINESS GROW"</span> We manage our team in such a way that our clients shall build their business and grow their wealth. So 'Moto' is our strengths and yours numbers which increase your bottom line. </p>
         </div>
     </div>
   )

@@ -3,7 +3,7 @@ import React from 'react';
 const Content = () => {
   return (
     <div className='flex justify-center w-full'>
-      <div className='pt-4 max-w-800px w-[70%] flex flex-col gap-4 flex-wrap mb-16'>
+      <div className='pt-4 max-w-800px w-[70%] max-md:w-[90%] flex flex-col gap-4 flex-wrap mb-16'>
         <div className='flex flex-col items-center justify-center mb-8'>
           <h1 className='text-customBlack font-bold text-5xl mb-4'>Our Values</h1>
           <div className='flex flex-col justify-center items-center mt-3 gap-[6px] mb-10'>

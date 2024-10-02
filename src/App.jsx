@@ -7,10 +7,10 @@ import Links from './components/Links';
 import ScrollUp from './components/ScrollUp';
 import AboutUs from './components/AboutUs';
 import IncomeTax from './components/Services/IncomeTax';
-import Services from './components/Services';
-import Clients from './components/Clients';
-import KnowledgeHub from './components/KnowledgeHub';
-import Blogs from './components/Blogs';
+import Services from './components/Navbar/Services';
+import Clients from './components/Navbar/Clients';
+import KnowledgeHub from './components/Navbar/KnowledgeHub';
+import Blogs from './components/Navbar/Blogs';
 import GST from './components/Services/GST';
 import Audit from './components/Services/Audit';
 import CorporateServices from './components/Services/CorporateServices';
@@ -21,7 +21,7 @@ import AccountingServices from './components/Services/AccountingServices';
 import Outsourcing from './components/Services/Outsourcing';
 import CorporateGovernance from './components/Services/CorporateGovernance';
 import ScrollToTop from './components/ScrollToTop';
-import Contact from './components/Contact';
+import Contact from './components/Navbar/Contact';
 import { HeroBg } from './assets';
 import Home from './Home';
 
@@ -42,27 +42,26 @@ function App() {
         <ScrollToTop />
         <Routes>
           <Route path="/Jain-Jakhotiya/" exact element={<Home />} />
-          <Route path="/services" exact element={<Services />} />
-          <Route path="/blogs" exact element={<Blogs />} />
-          <Route path="/knowledge-hub" exact element={<KnowledgeHub />} />
-          <Route path="/our-clients" exact element={<Clients />} />
-          <Route path="/contact" exact element={<Contact />} />
-          <Route path="/aboutus" exact element={<AboutUs />} />
-          <Route path="/services/income-tax" exact element={<IncomeTax />} />
-          <Route path="/services/goods-service-tax(gst)" exact element={<GST />} />
-          <Route path="/services/audit" exact element={<Audit />} />
-          <Route path="/services/corporate-services" exact element={<CorporateServices />} />
-          <Route path="/services/value-added-tax(vat)" exact element={<VAT />} />
-          <Route path="/services/service-tax" exact element={<ServiceTax />} />
-          <Route path="/services/corporate-finance" exact element={<CFinance />} />
-          <Route path="/services/accounting-services" exact element={<AccountingServices />} />
-          <Route path="/services/benefits-of-outsourcing" exact element={<Outsourcing />} />
-          <Route path="/services/corporate-governance" exact element={<CorporateGovernance />} />
+          <Route path="/Jain-Jakhotiya/services" exact element={<Services />} />
+          <Route path="/Jain-Jakhotiya/blogs" exact element={<Blogs />} />
+          <Route path="/Jain-Jakhotiya/knowledge-hub" exact element={<KnowledgeHub />} />
+          <Route path="/Jain-Jakhotiya/our-clients" exact element={<Clients />} />
+          <Route path="/Jain-Jakhotiya/contact" exact element={<Contact />} />
+          <Route path="/Jain-Jakhotiya/aboutus" exact element={<AboutUs />} />
+          <Route path="/Jain-Jakhotiya/services/income-tax" exact element={<IncomeTax />} />
+          <Route path="/Jain-Jakhotiya/services/goods-service-tax(gst)" exact element={<GST />} />
+          <Route path="/Jain-Jakhotiya/services/audit" exact element={<Audit />} />
+          <Route path="/Jain-Jakhotiya/services/corporate-services" exact element={<CorporateServices />} />
+          <Route path="/Jain-Jakhotiya/services/value-added-tax(vat)" exact element={<VAT />} />
+          <Route path="/Jain-Jakhotiya/services/service-tax" exact element={<ServiceTax />} />
+          <Route path="/Jain-Jakhotiya/services/corporate-finance" exact element={<CFinance />} />
+          <Route path="/Jain-Jakhotiya/services/accounting-services" exact element={<AccountingServices />} />
+          <Route path="/Jain-Jakhotiya/services/benefits-of-outsourcing" exact element={<Outsourcing />} />
+          <Route path="/Jain-Jakhotiya/services/corporate-governance" exact element={<CorporateGovernance />} />
         </Routes>
-        <hr className='ml-[9%] mr-[9%]'/>
+        <hr />
         <Links/>
         <ScrollUp />
-        <hr className='border-customBlack ml-[8%] mr-[8%]'/>
         <Footer />
       </div>
     </Router>

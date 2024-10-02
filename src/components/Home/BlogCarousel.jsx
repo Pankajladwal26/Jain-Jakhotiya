@@ -44,7 +44,7 @@ const BlogCarousel = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full mb-28">
-      <div className='pt-4 pl-4 pb-4 max-w-1350px w-[70%] flex gap-4 overflow-x-auto mb-10 bg-gray-300 rounded-lg scrollbar-thin'>
+      <div className='pt-4 pl-4 pb-4 max-w-1350px w-[70%] max-md:w-[90%] flex gap-4 overflow-x-auto mb-10 bg-gray-300 rounded-lg scrollbar-thin'>
         {blogs.map(blog => (
           <div key={blog.id} className="min-w-[200px] border border-gray-300 rounded-lg shadow-md bg-white p-4 flex-shrink-0 transition-transform duration-300 hover:scale-105">
             <img src={blog.image} alt={blog.title} className="w-full h-auto rounded-md mb-2" />
