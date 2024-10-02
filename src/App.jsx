@@ -41,7 +41,7 @@ function App() {
         </div>
         <ScrollToTop />
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/Jain-Jakhotiya/" exact element={<Home />} />
           <Route path="/services" exact element={<Services />} />
           <Route path="/blogs" exact element={<Blogs />} />
           <Route path="/knowledge-hub" exact element={<KnowledgeHub />} />

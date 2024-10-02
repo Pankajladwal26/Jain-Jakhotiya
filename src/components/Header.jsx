@@ -45,7 +45,7 @@ const Header = () => {
         <div className={`fixed top-0 right-0 z-50 h-full w-4/5 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
           <div className='flex h-screen flex-col p-4 items-end gap-4 bg-navbarGradient border-l-2 border-customBlack pr-11'>
             <button onClick={toggleNavbar} className='self-end p-2 w-10 bg-black rounded mb-4 '><FontAwesomeIcon icon={faX} /></button>
-            <Link to="/" className='nav-link mb-2 text-white text-2xl font-semibold'>Home</Link>
+            <Link to="/Jain-Jakhotiya/" className='nav-link mb-2 text-white text-2xl font-semibold'>Home</Link>
             <Link to="/services" className='nav-link mb-2 text-white text-2xl font-semibold'>Services</Link>
             <Link to="/blogs" className='nav-link mb-2 text-white text-2xl font-semibold'>Blogs</Link>
             <Link to="/hub" className='nav-link mb-2 text-white text-2xl font-semibold'>Hub</Link>
@@ -62,7 +62,7 @@ const Header = () => {
             onMouseEnter={() => setDropdownHome(true)}
             onMouseLeave={() => setDropdownHome(false)}
           >
-            <Link to="/" className="relative group">
+            <Link to="/Jain-Jakhotiya/" className="relative group">
               <span className="relative inline-block">
                 Home
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
