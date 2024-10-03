@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className="bg-footer text-white pb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 pt-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-lg:gap-0 max-md:gap-8">
           {/* Gridgum Section */}
           <div>
             <img src={CALogo} alt="CA Logo" width={70} className='mb-4'/>
@@ -63,7 +63,7 @@ const Footer = () => {
               </div>
               <div>
                 <p className="text-gray-400">cajakhotiya@gmail.com</p>
-                <p className="text-gray-400">camadhusudan.jain@gmail.com</p>
+                <p className="text-gray-400">camadhusudan.jain <br className='lg:hidden max-md:hidden'/> @gmail.com</p>
               </div>
             </div>
           </div>

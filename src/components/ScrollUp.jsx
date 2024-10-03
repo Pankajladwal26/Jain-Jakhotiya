@@ -29,10 +29,10 @@ const ScrollUp = () => {
     }, []);
 
     return (
-        <div className={`fixed bottom-7 right-7 max-md:bottom-3 max-md:right-3 z-50 ${isVisible ? 'block' : 'hidden'}`}>
+        <div className={`fixed bottom-7 right-7 max-md:bottom-3 max-md:right-3 z-40 ${isVisible ? 'block' : 'hidden'}`}>
             <button
                 onClick={scrollToTop}
-                className="bg-slate-500 text-white rounded-full w-16 h-16 max-lg:w-10 max-lg:h-10 flex items-center justify-center text-2xl shadow-lg hover:bg-n-4 transition-colors"
+                className="bg-white text-black border-2 border-customBlack transition-transform duration-2000 hover:scale-110 hover:bg-black hover:text-white hover:border-white w-12 h-12 max-lg:w-10 max-lg:h-10 flex items-center justify-center text-2xl hover:bg-n-4"
             >
                 <FontAwesomeIcon icon={faArrowUp} />
             </button>

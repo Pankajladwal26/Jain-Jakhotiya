@@ -25,6 +25,8 @@ export default {
         contentbg: "#f7f8f9",
         footer: "#111111",
         socials: "#999999",
+        navdropdown: "#3e3e40",
+        discover: "#F5F5DC",
       },
       spacing: {
         '10rem': '10rem',
@@ -48,8 +50,13 @@ export default {
       screens: {
         '900px': '900px',
       },
+      textShadow: {
+        'glow': `0 0 5px rgba(245, 245, 220, 0.6), 0 0 10px rgba(245, 245, 220, 0.4)`,
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwindcss-textshadow'),
+  ],
 }
 
