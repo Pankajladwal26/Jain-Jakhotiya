@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CALogo } from '../assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX, faBars, faCaretDown } from '@fortawesome/free-solid-svg-icons';
+import { faX, faBars, faCaretDown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import UserProfile from './user/UserProfile';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownHome, setDropdownHome] = useState(false);
   const [dropdownServices, setDropdownServices] = useState(false);
   const [bgClass, setBgClass] = useState('bg-transparent');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // To track user login status
+  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -24,6 +27,13 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
+
+    // Check if user is logged in when the component mounts
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
@@ -37,16 +47,38 @@ const Header = () => {
     }
   };
 
+  // Function to handle logout (to update the state, clear token, and refresh the page)
+  const handleLogout = () => {
+    localStorage.removeItem('token'); // Remove the token from local storage
+    setIsLoggedIn(false); // Update the login state
+    window.location.reload(); // Reload the page to reset the application state
+  };
+
   return (
     <section className={`text-white h-20 flex justify-center items-center w-full fixed top-0 left-0 z-50 transition-all duration-300 ${bgClass}`}>
       <div className='flex justify-between items-center max-w-800px w-[70%] max-2xl:w-[75%] max-xl:w-[80%] max-lg:w-[90%] gap-8 pt-4 pb-4 text-secondary'>
         <img src={CALogo} alt="CA Logo" width={100} />
-        
-        <button 
-          onClick={toggleNavbar} 
-          className='lg:hidden p-2 bg-black w-10 rounded'>
-          {isOpen ? <FontAwesomeIcon icon={faX}/> : <FontAwesomeIcon icon={faBars}/>}
-        </button>
+
+        <div className='flex gap-6'>
+          {/* Conditional rendering of Sign Up/Profile icon based on login state */}
+          <div className='lg:hidden'>
+            {isLoggedIn ? (
+              <UserProfile setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} />
+            ) : (
+              <Link to="/Jain-Jakhotiya/login">
+                <button className='bg-transparent text-white border-[2px] border-white font-semibold text-xl pr-2 pl-2 pt-1 pb-1'>
+                  Sign Up
+                </button>
+              </Link>
+            )}
+          </div>
+
+          <button 
+            onClick={toggleNavbar} 
+            className='lg:hidden p-2 bg-black w-10 rounded'>
+            {isOpen ? <FontAwesomeIcon icon={faX}/> : <FontAwesomeIcon icon={faBars}/>}
+          </button>
+        </div>
 
         <div className={`fixed top-0 right-0 z-50 h-full w-4/5 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
           <div className='flex h-screen flex-col p-4 items-end gap-4 bg-navbarGradient border-l-2 border-customBlack pr-11'>
@@ -75,9 +107,9 @@ const Header = () => {
                 </Link>
               </div>
               {dropdownHome && (
-              <div className="text-text text-xl text-end font-semibold mt-2">
-                <Link to="/Jain-Jakhotiya/aboutus" onClick={handleLinkClick} className="block py-2 px-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">About Us</Link>
-              </div>
+                <div className="text-text text-xl text-end font-semibold mt-2">
+                  <Link to="/Jain-Jakhotiya/aboutus" onClick={handleLinkClick} className="block py-2 px-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">About Us</Link>
+                </div>
               )}
             </div>
             {/* Services with Dropdown */}
@@ -103,34 +135,34 @@ const Header = () => {
                 </Link>
               </div>
               {dropdownServices && (
-              <div className="flex flex-col items-end text-xl font-semibold text-end text-text mt-2">
-                {['Income Tax', 'Goods & Service Tax(GST)', 'Audit', 'Corporate Services', 'Value Added Tax(VAT)', 'Service Tax', 'Corporate Finance', 'Accounting Services', 'Benefits Of Outsourcing', 'Corporate Governance'].map((service) => (
-                <Link 
-                  key={service} 
-                  to={`/Jain-Jakhotiya/services/${service.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')}`} 
-                  onClick={handleLinkClick} 
-                  className="block py-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">
-                  {service}
-                </Link>
-                ))}
-              </div>
+                <div className="flex flex-col items-end text-xl font-semibold text-end text-text mt-2">
+                  {['Income Tax', 'Goods & Service Tax(GST)', 'Audit', 'Corporate Services', 'Value Added Tax(VAT)', 'Service Tax', 'Corporate Finance', 'Accounting Services', 'Benefits Of Outsourcing', 'Corporate Governance'].map((service) => (
+                    <Link 
+                      key={service} 
+                      to={`/Jain-Jakhotiya/services/${service.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')}`} 
+                      onClick={handleLinkClick} 
+                      className="block py-2 hover:bg-menuItems transition-colors duration-200 rounded-lg">
+                      {service}
+                    </Link>
+                  ))}
+                </div>
               )}
             </div>
 
             {/* Other Links */}
             {['Blogs', 'Knowledge Hub', 'Our Clients', 'Contact'].map((link) => (
-            <Link 
-              key={link} 
-              to={`/Jain-Jakhotiya/${link.toLowerCase().replace(/\s+/g, '-')}`} 
-              onClick={handleLinkClick} 
-              className="nav-link mb-2 text-white text-end text-2xl font-semibold">
-              {link}
-            </Link>
+              <Link 
+                key={link} 
+                to={`/Jain-Jakhotiya/${link.toLowerCase().replace(/\s+/g, '-')}`} 
+                onClick={handleLinkClick} 
+                className="nav-link mb-2 text-white text-end text-2xl font-semibold">
+                {link}
+              </Link>
             ))}
           </div>
         </div>
 
-        <div className='hidden lg:flex lg:flex-row gap-8 text-xl max-xl:text-lg text-white font-medium max-lg:text-lg max-xl:gap-6 relative'>
+        <div className='hidden items-center lg:flex lg:flex-row gap-8 text-xl max-xl:text-lg text-white font-medium max-lg:text-lg max-xl:gap-6 relative'>
           {/* Home Link with Dropdown */}
           <div 
             className="relative group"
@@ -191,10 +223,20 @@ const Header = () => {
               </span>
             </Link>
           ))}
+          {/* Conditional rendering of Sign Up/Profile icon based on login state */}
+          {isLoggedIn ? (
+            <UserProfile setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} />
+          ) : (
+            <Link to="/Jain-Jakhotiya/login">
+              <button className='bg-transparent text-white border-[2px] border-white font-semibold text-xl pr-2 pl-2 pt-1 pb-1'>
+                Sign Up
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </section>
   );
-}
+};
 
 export default Header;

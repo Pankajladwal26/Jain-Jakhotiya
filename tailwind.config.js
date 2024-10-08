@@ -48,7 +48,7 @@ export default {
         '100': '100px',
       },
       screens: {
-        '900px': '900px',
+        '1160px': '1160px',
       },
       textShadow: {
         'glow': `0 0 5px rgba(245, 245, 220, 0.6), 0 0 10px rgba(245, 245, 220, 0.4)`,

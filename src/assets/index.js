@@ -14,6 +14,10 @@ import pdfIcon from "./pdfIcon.png";
 import CompServices from "./CompServices.jpg";
 import Missionbg from "./Missionbg.jpg";
 import Performancebg from "./Performancebg.jpg";
+import User from './user.png';
+import edit from './edit.png';
+import Logout from './log-out.png';
+import settings from './settings.png';
 
 export {
     CALogo,
@@ -32,4 +36,8 @@ export {
     CompServices,
     Missionbg,
     Performancebg,
+    User,
+    edit,
+    settings,
+    Logout,
 };
