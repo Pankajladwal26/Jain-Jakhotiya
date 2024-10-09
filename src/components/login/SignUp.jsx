@@ -22,7 +22,7 @@ const SignUp = () => {
 
             const { token } = response.data;
 
-            // Store token in localStorage
+            // Store token in localStorage with key 'token'
             localStorage.setItem('token', token);
 
             // Redirect to home page after successful signup

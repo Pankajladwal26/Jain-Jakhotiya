@@ -48,6 +48,7 @@ export default {
         '100': '100px',
       },
       screens: {
+        '1075px': '1075px',
         '1160px': '1160px',
       },
       textShadow: {

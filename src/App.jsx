@@ -25,17 +25,22 @@ import Contact from './components/Navbar/Contact';
 import { HeroBg } from './assets';
 import Home from './Home';
 import LoginPage from './components/login/LoginPage';
+import MyProfile from './components/user/MyProfile';
+import Profile from './components/user/ProfileIntro';
+import EditProfile from './components/user/editProfile';
 
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/Jain-Jakhotiya/login';
+  const isProfile = location.pathname === '/Jain-Jakhotiya/profile';
+  const isEditProfile = location.pathname === 'Jain-Jakhotiya/edit-profile';
 
   return (
     <div className='relative overflow-x-clip'>
       {/* Only render the Header and Hero if not on the login page */}
       {!isLoginPage && (
         <div
-          className='relative items-center bg-no-repeat bg-cover w-full h-[100vh] mb-16'
+          className='relative z-10 items-center bg-no-repeat bg-cover w-full h-[100vh] mb-16'
           style={{
             backgroundImage: `url(${HeroBg})`,
             backgroundPosition: 'center',
@@ -43,8 +48,18 @@ function App() {
             backgroundRepeat: 'no-repeat',
           }}
         >
-          <Header />
-          <Hero />
+          {isProfile || isEditProfile ?
+            <div className=''>
+              <Header />
+              < Profile />
+            </div> 
+           : 
+           <div>
+            <Header />
+            <Hero />
+           </div>
+           
+        }
         </div>
       )}
 
@@ -53,6 +68,8 @@ function App() {
       {/* Routes for different pages */}
       <Routes>
         <Route path="/Jain-Jakhotiya/login" element={<LoginPage />} />
+        <Route path="/Jain-Jakhotiya/profile" element={<MyProfile />} />
+        <Route path="/Jain-Jakhotiya/edit-profile" element={<EditProfile />} />
         <Route path="/Jain-Jakhotiya/" element={<Home />} />
         <Route path="/Jain-Jakhotiya/services" element={<Services />} />
         <Route path="/Jain-Jakhotiya/blogs" element={<Blogs />} />
@@ -73,7 +90,7 @@ function App() {
       </Routes>
 
       {/* Only render the Footer, Links, and ScrollUp if not on the login page */}
-      {!isLoginPage && (
+      {!isLoginPage && !isProfile && !isEditProfile && (
         <>
           <hr />
           <Links />
@@ -81,6 +98,8 @@ function App() {
           <Footer />
         </>
       )}
+      {/* Only render the Footer if on the profile page */}
+      {(isProfile || isEditProfile) && <Footer />}
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { CALogo } from '../assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX, faBars, faCaretDown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +11,6 @@ const Header = () => {
   const [dropdownServices, setDropdownServices] = useState(false);
   const [bgClass, setBgClass] = useState('bg-transparent');
   const [isLoggedIn, setIsLoggedIn] = useState(false); // To track user login status
-  const navigate = useNavigate();
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -56,7 +55,7 @@ const Header = () => {
 
   return (
     <section className={`text-white h-20 flex justify-center items-center w-full fixed top-0 left-0 z-50 transition-all duration-300 ${bgClass}`}>
-      <div className='flex justify-between items-center max-w-800px w-[70%] max-2xl:w-[75%] max-xl:w-[80%] max-lg:w-[90%] gap-8 pt-4 pb-4 text-secondary'>
+      <div className='flex justify-between items-center max-w-800px w-[70%] max-2xl:w-[75%] max-xl:w-[80%] max-1075px:w-[85%] max-lg:w-[90%] gap-8 pt-4 pb-4 text-secondary'>
         <img src={CALogo} alt="CA Logo" width={100} />
 
         <div className='flex gap-6'>

@@ -51,7 +51,7 @@ const BlogCarousel = () => {
 
     if (carouselRef.current) {
       // Horizontal scroll speed (adjust as necessary)
-      const scrollSpeed = 30;
+      const scrollSpeed = 50;
 
       // Scroll left if the user scrolls up, right if they scroll down
       if (event.deltaY > 0) {
@@ -83,10 +83,13 @@ const BlogCarousel = () => {
   useEffect(() => {
     // Add the global scroll event listener when the component mounts
     window.addEventListener('wheel', preventVerticalScroll, { passive: false });
+    // Add the scroll event listener for the carousel for horizontal scrolling
+    carouselRef.current?.addEventListener('wheel', handleWheel, { passive: false });
 
     // Cleanup event listener when component unmounts
     return () => {
       window.removeEventListener('wheel', preventVerticalScroll);
+      carouselRef.current?.removeEventListener('wheel', handleWheel);
     };
   }, [isHovered]); // The scroll event listener will trigger on hover change
 
@@ -95,7 +98,6 @@ const BlogCarousel = () => {
       <div
         ref={carouselRef}
         className="pt-4 pl-4 pb-4 max-w-1350px w-[70%] max-md:w-[90%] flex gap-4 overflow-x-auto mb-10 bg-white rounded-lg scrollbar-thin"
-        onWheel={handleWheel} // Capture the wheel event for horizontal scrolling
         onMouseEnter={() => setIsHovered(true)} // Track when the user hovers over the carousel
         onMouseLeave={() => setIsHovered(false)} // Track when the user leaves the carousel
       >
