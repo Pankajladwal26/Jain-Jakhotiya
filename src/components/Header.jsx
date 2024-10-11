@@ -50,7 +50,7 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('token'); // Remove the token from local storage
     setIsLoggedIn(false); // Update the login state
-    window.location.reload(); // Reload the page to reset the application state
+    window.location.href = '/Jain-Jakhotiya/';
   };
 
   return (

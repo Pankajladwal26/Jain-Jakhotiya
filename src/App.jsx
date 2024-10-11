@@ -27,13 +27,15 @@ import Home from './Home';
 import LoginPage from './components/login/LoginPage';
 import MyProfile from './components/user/MyProfile';
 import Profile from './components/user/ProfileIntro';
-import EditProfile from './components/user/editProfile';
+import EditProfile from './components/user/EditProfile';
+import AdminPanel from './components/user/AdminPanel';
 
 function App() {
   const location = useLocation();
   const isLoginPage = location.pathname === '/Jain-Jakhotiya/login';
   const isProfile = location.pathname === '/Jain-Jakhotiya/profile';
-  const isEditProfile = location.pathname === 'Jain-Jakhotiya/edit-profile';
+  const isEditProfile = location.pathname === '/Jain-Jakhotiya/edit-profile';
+  const isAdminPanel = location.pathname === '/Jain-Jakhotiya/admin-panel';
 
   return (
     <div className='relative overflow-x-clip'>
@@ -48,7 +50,7 @@ function App() {
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {isProfile || isEditProfile ?
+          {isProfile || isEditProfile || isAdminPanel ?
             <div className=''>
               <Header />
               < Profile />
@@ -70,6 +72,7 @@ function App() {
         <Route path="/Jain-Jakhotiya/login" element={<LoginPage />} />
         <Route path="/Jain-Jakhotiya/profile" element={<MyProfile />} />
         <Route path="/Jain-Jakhotiya/edit-profile" element={<EditProfile />} />
+        <Route path="/Jain-Jakhotiya/admin-panel" element={<AdminPanel />} />
         <Route path="/Jain-Jakhotiya/" element={<Home />} />
         <Route path="/Jain-Jakhotiya/services" element={<Services />} />
         <Route path="/Jain-Jakhotiya/blogs" element={<Blogs />} />
@@ -90,7 +93,7 @@ function App() {
       </Routes>
 
       {/* Only render the Footer, Links, and ScrollUp if not on the login page */}
-      {!isLoginPage && !isProfile && !isEditProfile && (
+      {!isLoginPage && !isProfile && !isEditProfile && !isAdminPanel && (
         <>
           <hr />
           <Links />
@@ -99,7 +102,7 @@ function App() {
         </>
       )}
       {/* Only render the Footer if on the profile page */}
-      {(isProfile || isEditProfile) && <Footer />}
+      {(isProfile || isEditProfile || isAdminPanel) && <Footer />}
     </div>
   );
 }
