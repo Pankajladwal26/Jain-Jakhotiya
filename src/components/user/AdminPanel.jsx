@@ -7,15 +7,17 @@ import DeleteBlog from '../admin/DeleteBlog';
 import GetAllUsers from '../admin/GetAllUsers';
 import GetUserByID from '../admin/GetUserByID';
 import UpdateUserRole from '../admin/UpdateUserRole';
+import UpdateBlog from '../admin/UpdateBlog';
 
 const AdminPanel = () => {
   const adminPanel = [
     { id: "0", title: "Create Blogs" },
-    { id: "1", title: "Delete Blogs" },
-    { id: "2", title: "Update User Role" },
-    { id: "3", title: "Delete User" },
-    { id: "4", title: "Get All Users" },
-    { id: "5", title: "Get User By ID" },
+    { id: "1", title: "Update Blogs" },
+    { id: "2", title: "Delete Blogs" },
+    { id: "3", title: "Update User Role" },
+    { id: "4", title: "Delete User" },
+    { id: "5", title: "Get All Users" },
+    { id: "6", title: "Get User By ID" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,14 +48,16 @@ const AdminPanel = () => {
       case 0:
         return <CreateBlog />;
       case 1:
-        return <DeleteBlog />;
+        return <UpdateBlog />;
       case 2:
-        return <UpdateUserRole />;
+        return <DeleteBlog />;
       case 3:
-        return <DeleteUser />;
+        return <UpdateUserRole />;
       case 4:
-        return <GetAllUsers />;
+        return <DeleteUser />;
       case 5:
+        return <GetAllUsers />;
+      case 6:
         return <GetUserByID />;
       default:
         return null;
@@ -97,7 +101,7 @@ const AdminPanel = () => {
         ))}
 
         {/* Fixed position icons */}
-        <div className='flex items-center justify-center gap-[900px] max-lg:gap-[600px] max-md:gap-[500px] max-sm:gap-[250px]'>
+        <div className='flex items-center justify-center gap-[900px] max-lg:gap-[600px] max-md:gap-[500px] max-sm:gap-[270px]'>
           <div className="relative z-10">
             <FontAwesomeIcon 
               onClick={() => handleScroll('prev')} 

@@ -1,71 +1,154 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Blogs = () => {
+  const [blogs, setBlogs] = useState([]); // Array to store multiple blogs
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const [currentPage, setCurrentPage] = useState(1); // For pagination
+  const [blogsPerPage] = useState(3); // Number of blogs per page (fixed to 5)
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setError('You are not authenticated. Please log in.');
+          setLoading(false);
+          return;
+        }
+
+        const response = await axios.get('http://localhost:4000/api/v1/blogs', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setBlogs(response.data.blogs); // Assuming the response has 'blogs'
+        setLoading(false);
+      } catch (err) {
+        let errorMessage = 'Error fetching blog data';
+        if (err.response) {
+          errorMessage = err.response.data?.message || 'An unknown error occurred';
+        } else if (err.request) {
+          errorMessage = 'No response from the server';
+        } else {
+          errorMessage = err.message || 'An unexpected error occurred';
+        }
+
+        setError(errorMessage);
+        setLoading(false);
+      }
+    };
+
+    fetchBlogData();
+  }, []);
+
+  // Pagination logic: Calculate the index of the first and last blog to display on the current page
+  const totalBlogs = blogs.length;
+  const totalPages = Math.ceil(totalBlogs / blogsPerPage);
+  
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
+
+  // Check if the date is valid
+  const getFormattedDate = (dateString) => {
+    const date = new Date(dateString);
+    return isNaN(date.getTime()) ? 'Date not available' : date.toLocaleDateString();
+  };
+
+  // Pagination handler
+  const handlePageChange = (direction) => {
+    if (direction === 'next' && currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    } else if (direction === 'prev' && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (blogs.length === 0) {
+    return (
+      <div className='flex justify-center w-full'>
+        <div className='pt-4 max-w-800px w-[70%] max-md:w-[90%] flex items-center justify-center mb-48 mt-28'>
+          <div className='text-customBlack font-bold text-5xl'>
+            No Blogs Uploaded Yet!
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='flex justify-center w-full'>
-        <div className='pt-4 max-w-800px w-[70%] max-md:w-[90%] flex flex-col gap-4 flex-wrap mb-10'>
-            <div className='flex flex-col justify-center mb-8'>
-                <h1 className='text-customBlack font-bold text-5xl mb-1 max-sm:text-4xl'>GST Enrollment</h1>
-                <p className='text-text mb-6 ml-1'>By Madhusudan Jain on Jan 21, 2017, 12:00 AM</p>
+      <div className='pt-4 max-w-800px w-[70%] max-md:w-[90%] flex flex-col gap-4 flex-wrap mb-10'>
+        {/* Render the blogs for the current page */}
+        {currentBlogs.map((blog, index) => (
+          <div
+            key={blog._id}
+            className={`flex flex-col justify-center pb-20 mb-16 ${
+              index !== currentBlogs.length - 1 ? 'border-b-2 border-text' : ''
+            }`}
+          >
+            {/* Display image if available */}
+            {blog.image && blog.image.length > 0 && (
+              <img
+                src={blog.image[0]?.url} // Assuming 'image' field contains the image URL
+                alt={blog.title}
+                className="mb-10 rounded-lg object-contain h-96 w-fit" // Example styling (adjust as needed)
+              />
+            )}
+  
+            <h1 className='text-customBlack font-bold text-3xl mb-3 max-sm:text-4xl'>
+              {blog.title}
+            </h1>
+            <p className='text-text text-lg mb-6 ml-1'>
+              By {`${blog.user?.firstName} ${blog.user?.lastName}` || "Unknown"} on {getFormattedDate(blog?.createdAt)}
+            </p>
+            <div className='text-text text-lg mt-2'>
+              {/* Render blog body with HTML content */}
+              <div
+                className="blog-body"
+                dangerouslySetInnerHTML={{ __html: blog?.body }}
+              />
             </div>
-            <div className='flex flex-col mb-8'>
-                <p className='text-text font-semibold text-xl mb-4'>Provisional registration to existing tax payers:-</p>
-                <p className='text-lg text-text'>Every person who is registered under existing law will 
-                    be granted registration on provisional basis. The enrolment has already started for State VAT from different dates all over 
-                    India. The enrolment is nothing but a process to gather the information of existing tax payers in a one pool. The data collected
-                    shall be used to provide provisional certificate.</p>
-            </div>
-            <div className='flex flex-col mb-8'>
-                <p className='text-text font-semibold text-xl mb-4'>Registration of existing tax payers under GST law</p>
-                <p className='text-lg text-text'>On the appointed day (Expected to be 01-07-2017), every person who is <span className='font-semibold'>
-                    registered under any of the earlier laws</span> (e.g. Service tax, Excise, State VAT, Luxury tax, etc.) and having  a 
-                    <span className='font-semibold'> valid  PAN </span> shall  be  granted a registration  on  a <span className='font-semibold'> 
-                    provisional basis </span> and <span className='font-semibold'> certificate of registration in FORM GST REG-21.</span> Every person 
-                    who has been granted the provisional registration shall submit an application electronically in <span className='font-semibold'> 
-                    FORM GST REG-20 </span> duly signed along with documents specified in such form within <span className='font-semibold'> 6 Months 
-                    </span> from the date of issue of provisional certificate. On the basis of documents furnished, the proper officer may issue the 
-                    Final certificate of registration under <span className='font-semibold'> Form GST REG-06.</span> The same shall be available on the 
-                    common portal.</p>
-            </div>
-            <div className='flex flex-col mb-8'>
-                <p className='text-text font-semibold text-xl mb-4'>Cancellation of provisional certificate</p>
-                <p className='text-lg text-text'>The tax payer shall be issued a provisional certificate. If he is not liable to be registered under
-                    GST, then he may file an application under Form GST REG 24 at the common portal that he is not liable to be registered under GST 
-                    and the proper officer may, after conducting such enquiry, cancel the provisional certificate.</p>
-            </div>
-            <div className='flex flex-col mb-8'>
-                <p className='text-text font-semibold text-xl mb-4'>Opt for Composition scheme</p>
-                <p className='text-lg text-text'>A  person  to  whom  a  certificate  of  registration  has  been  issued  on  a  provisional basis
-                    and who is eligible to pay tax under section 9, may opt to do so while filing the application for final registration.</p>
-            </div>
-            <div className='flex flex-col mb-8'>
-                <p className='text-text font-semibold text-xl mb-4'>Fresh Registration under GST law:</p>
-                <p className='text-text font-semibold text-xl mb-4'>Person liable to be registered under GST:</p>
-                <p className='text-lg text-text'>A person having <span className='font-semibold'> aggregate turnover </span> of INR 20 Lakhs or more during the financial year shall be 
-                    required to be registered under GST. This limit is reduced to INR 10 Lakhs for special category states. Registration application shall
-                    be filed within 30 days from the date such person becomes liable to be registered.</p>
-            </div>
-            <hr />
-            <div className='flex flex-col justify-center mb-8 mt-8'>
-                <h1 className='text-customBlack font-bold text-5xl mb-1 max-sm:text-4xl'>Filing of ST -3 Half yearly return 2016-17- Need some correction</h1>
-                <p className='text-text mb-6 ml-1'>By Madhusudan Jain on Oct 25, 2016, 12:00 AM</p>
-            </div>
-            <div className='flex flex-col mb-8'>
-                <p className='text-text font-semibold text-xl mb-4'>Provisional registration to existing tax payers:-</p>
-                <p className='text-lg text-text'>While the assessee logs in the ACES site for filing the Service tax Return of the I half of 2016-17 i.e. for the 6 months ended 
-                    30.09.2016 and clicks the "RETâ€, in the â€˜drop downâ€™ menu the following options appear: "Fill ST â€“ 3 (for Oct â€“ Mar 2013)â€ and "Fill St â€“ 3 
-                    (upto Oct â€“ Mar 2012)â€ in addition to â€˜Revise ST 3â€™ and â€˜Complete ST 3â€™. There is no option for filing return for the period from April 2016 to 
-                    September 2016 or any other period. However if any one of the "FILLâ€ is clicked it goes to the current year return form ST 3.</p>
-                <p className="text-text text-lg mb-6">It may be due to non-updation of the menu after first introduction of the e-filing in 2012. It is to be updated so that assessees can 
-                    start filing the return without any confusion. At times the options are clogged together and the assessees are not able to select the option.</p>
-                <p className="text-lg text-text">In the last page of the return the site insists the assessee who is filing his/her own return in individual capacity to select the 
-                    option "I have been authorized as a person to file the return on behalf of the Service Provider/Service Receiver/Input Service Distributor as the case may beâ€. 
-                    Also in addition to other four options as to â€˜maintenance of Books of Accountâ€™, â€˜availing of CENVAT Creditâ€™, â€˜Payment of taxes within time or paid with
-                    interestâ€™ and â€˜filing of return within the prescribed time and if not paid the late filing feesâ€™: In my opinion while the assessee himself files the Return,
-                    the above clause is to be modified suitably since he/she himself cannot authorize himself/herself</p>
-            </div>
+          </div>
+        ))}
+  
+        {/* Pagination buttons */}
+        <div className="flex justify-center items-center gap-4 mt-4">
+          <button
+            onClick={() => handlePageChange('prev')}
+            disabled={currentPage === 1}
+            className="bg-white w-fit self-center text-customBlack border border-text font-semibold text-2xl py-2 px-4 max-sm:py-1 max-sm:px-3 max-sm:text-xl transition-transform duration-2000 hover:scale-110 hover:bg-black hover:text-white disabled:opacity-50"
+          >
+            Previous
+          </button>
+          <span className="font-semibold">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            onClick={() => handlePageChange('next')}
+            disabled={currentPage === totalPages}
+            className="bg-white w-fit self-center text-customBlack border border-text font-semibold text-2xl py-2 px-4 max-sm:py-1 max-sm:px-3 max-sm:text-xl transition-transform duration-2000 hover:scale-110 hover:bg-black hover:text-white disabled:opacity-50"
+          >
+            Next
+          </button>
         </div>
+      </div>
     </div>
-)};
+  );  
+};
 
 export default Blogs;

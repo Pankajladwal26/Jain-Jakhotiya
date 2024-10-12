@@ -55,7 +55,7 @@ const GetAllUsers = () => {
 
   return (
     <div className="flex justify-center items-center w-full">
-      <div className="pt-4 max-w-800px w-[70%] max-xl:w-[80%] flex flex-col items-center gap-4 flex-wrap mb-16">
+      <div className="pt-4 max-w-800px w-[70%] max-xl:w-[80%] max-sm:w-[90%] flex flex-col items-center gap-4 flex-wrap mb-16">
         {loading ? (
           <p>Loading...</p>
         ) : (
@@ -69,25 +69,25 @@ const GetAllUsers = () => {
                   <FontAwesomeIcon icon={faUser} className="h-16 w-16 max-1075px:w-12 max-1075px:h-12" />
                 </div>
                 <div className="grid grid-cols-2 max-md:grid-cols-1 gap-8 max-md:gap-4">
-                  <div key={`firstName-${user.id}`} className="flex w-auto items-center max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
+                  <div key={`firstName-${user.id}`} className="flex max-sm:flex-col w-auto items-center max-sm:items-start max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
                     <p>First Name :</p>
-                    <p>{user.firstName}</p>
+                    <p className='text-text'>{user.firstName}</p>
                   </div>
-                  <div key={`lastName-${user.id}`} className="flex items-center max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
+                  <div key={`lastName-${user.id}`} className="flex max-sm:flex-col items-center max-sm:items-start max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
                     <p>Last Name :</p>
-                    <p>{user.lastName}</p>
+                    <p className='text-text'>{user.lastName}</p>
                   </div>
-                  <div key={`username-${user.id}`} className="flex items-center max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
+                  <div key={`username-${user.id}`} className="flex max-sm:flex-col items-center max-sm:items-start max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
                     <p>Username :</p>
-                    <p>{user.userName}</p>
+                    <p className='text-text'>{user.userName}</p>
                   </div>
                   <div key={`role-${user.id}`} className="flex items-center max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2">
                     <p>Role :</p>
-                    <p>{user.role}</p>
+                    <p className='text-text'>{user.role}</p>
                   </div>
                   <div key={`email-${user.id}`} className="flex max-sm:flex-col items-center max-sm:items-start max-md:justify-start justify-center text-customBlack font-semibold text-xl gap-2 col-span-2 max-md:col-span-1">
                     <p>Email :</p>
-                    <p>{user.email}</p>
+                    <p className='text-text'>{user.email}</p>
                   </div>
                 </div>
               </div>
@@ -102,7 +102,7 @@ const GetAllUsers = () => {
                 Previous
               </button>
               <span className="font-semibold">
-                Page {currentPage} of {totalPages}
+                Page <br className='400px:hidden'/> {currentPage} of {totalPages}
               </span>
               <button
                 onClick={() => handlePageChange(currentPage + 1)}

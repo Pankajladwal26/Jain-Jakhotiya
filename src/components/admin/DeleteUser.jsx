@@ -148,7 +148,7 @@ const DeleteUser = () => {
           {/* User Info and Role Management Section */}
           <div className="bg-contentbg h-full shadow-2xl w-2/3 max-xl:w-full p-10 rounded-3xl">
             <div className="flex items-center justify-start p-2 pb-6 border-b-2">
-              <p className="text-customBlack font-bold text-4xl">My Account</p>
+              <p className="text-customBlack font-bold text-4xl">Delete User Account</p>
             </div>
 
             {/* USER ID Input */}
