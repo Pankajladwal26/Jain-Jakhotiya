@@ -8,7 +8,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownHome, setDropdownHome] = useState(false);
   const [dropdownServices, setDropdownServices] = useState(false);
-  const [bgClass, setBgClass] = useState('bg-transparent');
+  const [bgClass, setBgClass] = useState('mt-6 bg-transparent');
   const [topClass, setTopClass] = useState('bg-white rounded-2xl');
 
   const toggleNavbar = () => {
