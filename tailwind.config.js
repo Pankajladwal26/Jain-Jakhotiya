@@ -27,6 +27,9 @@ export default {
         socials: "#999999",
         navdropdown: "#3e3e40",
         discover: "#F5F5DC",
+        heroBlue: "#055AA8",
+        buttonBlue: "#3190E7",
+        green: "#28cb75",
       },
       spacing: {
         '10rem': '10rem',

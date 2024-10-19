@@ -6,12 +6,13 @@ import { faCity, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 
 const Performance = () => {
   return (
-    <div className='flex justify-center h-[350px] max-md:h-[800px] items-center w-full' 
+    <div className='flex justify-center h-[500px] max-md:h-[800px] items-center w-full mb-28' 
     style={{ 
         backgroundImage: `url(${Performancebg})`, 
         backgroundPosition: 'center', 
         backgroundSize: 'cover', 
-        backgroundRepeat: 'no-repeat' 
+        backgroundRepeat: 'no-repeat',
+        clipPath: 'polygon(0 22%, 100% 0, 100% 81%, 0 100%)',
       }}>
         <div className='pt-4 max-w-800px w-[70%] max-lg:w-[90%] mb-4'>
             <div className='flex justify-between max-md:flex-col max-md:gap-14 items-center'>

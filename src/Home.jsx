@@ -14,8 +14,8 @@ const Home = () => {
           <BlogCarousel />
           <ComprehensiveServices />
           <Vision />
-          <Performance />
           <Mission />
+          <Performance />
           <Values />
         </div>
   )

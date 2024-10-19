@@ -1,5 +1,8 @@
 import CALogo from "./CALogo.png";
 import HeroBg from "./HeroBg.jpg";
+import HeroBg1 from "./HeroBg1.jpg";
+import HeroBg2 from "./HeroBg2.jpg";
+import HeroBg3 from "./HeroBg3.jpg";
 import HeroImage from "./HeroImage.jpg";
 import HeroImage1 from "./HeroImage1.jpg";
 import HeroImage2 from "./HeroImage2.jpg";
@@ -22,6 +25,9 @@ import settings from './settings.png';
 export {
     CALogo,
     HeroBg,
+    HeroBg1,
+    HeroBg2,
+    HeroBg3,
     HeroImage,
     HeroImage1,
     HeroImage2,

@@ -4,7 +4,7 @@ const Intro = () => {
   return (
     <div className='flex justify-center items-center w-full'>
         <div className='pt-4 max-w-800px w-[70%] max-md:w-[90%] flex flex-col items-center gap-4 flex-wrap mb-16'>
-            <h1 className='text-customBlack text-center font-semibold text-3xl mb-2'>Your Trusted Partner in Financial Excellence</h1>
+            <h1 className='text-customBlack text-center font-bold text-4xl mb-2'>Your <span className='text-buttonBlue'>Trusted Partner</span> in Financial Excellence</h1>
             <div className='flex flex-col justify-center items-center mt-3 gap-[6px] mb-10'>
                 <span className='block h-[1px] w-12 bg-customBlack'></span>
                 <span className='block h-[1px] w-8 bg-customBlack'></span>

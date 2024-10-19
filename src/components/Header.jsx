@@ -3,14 +3,13 @@ import { Link} from "react-router-dom";
 import { CALogo } from '../assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX, faBars, faCaretDown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import UserProfile from './user/UserProfile';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownHome, setDropdownHome] = useState(false);
   const [dropdownServices, setDropdownServices] = useState(false);
   const [bgClass, setBgClass] = useState('bg-transparent');
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // To track user login status
+  const [topClass, setTopClass] = useState('bg-white rounded-2xl');
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -18,20 +17,16 @@ const Header = () => {
 
   const handleScroll = () => {
     if (window.scrollY > 50) {
-      setBgClass('bg-text bg-opacity-75 backdrop-blur');
+      setBgClass('bg-white bg-opacity-100 backdrop-blur shadow-2xl');
+      setTopClass('');
     } else {
-      setBgClass('bg-transparent');
+      setBgClass('mt-6 bg-transparent');
+      setTopClass('lg:bg-white rounded-2xl');
     }
   };
 
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
-
-    // Check if user is logged in when the component mounts
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-    }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -46,32 +41,15 @@ const Header = () => {
     }
   };
 
-  // Function to handle logout (to update the state, clear token, and refresh the page)
-  const handleLogout = () => {
-    localStorage.removeItem('token'); // Remove the token from local storage
-    setIsLoggedIn(false); // Update the login state
-    window.location.href = '/Jain-Jakhotiya/';
-  };
-
   return (
-    <section className={`text-white h-20 flex justify-center items-center w-full fixed top-0 left-0 z-50 transition-all duration-300 ${bgClass}`}>
-      <div className='flex justify-between items-center max-w-800px w-[70%] max-2xl:w-[75%] max-xl:w-[80%] max-1075px:w-[85%] max-lg:w-[90%] gap-8 pt-4 pb-4 text-secondary'>
-        <img src={CALogo} alt="CA Logo" width={100} />
+    <section className={`text-black h-20 flex justify-center w-full items-center fixed z-50 transition-all duration-300 ${bgClass}`}>
+      <div className={`flex justify-between items-center max-w-800px w-[80%] max-2xl:w-[85%] max-xl:w-[90%] max-1075px:w-[95%] gap-8 pt-4 pb-4 pr-10 text-secondary ${topClass}`}>
+        
+        <div className='max-lg:bg-white max-lg:rounded-2xl'>
+          <img src={CALogo} alt="CA Logo" className='w-32 h-16 rounded-2xl' />
+        </div>
 
         <div className='flex gap-6'>
-          {/* Conditional rendering of Sign Up/Profile icon based on login state */}
-          <div className='lg:hidden'>
-            {isLoggedIn ? (
-              <UserProfile setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} />
-            ) : (
-              <Link to="/Jain-Jakhotiya/login">
-                <button className='bg-transparent text-white border-[2px] border-white font-semibold text-xl pr-2 pl-2 pt-1 pb-1'>
-                  Sign Up
-                </button>
-              </Link>
-            )}
-          </div>
-
           <button 
             onClick={toggleNavbar} 
             className='lg:hidden p-2 bg-black w-10 rounded'>
@@ -161,7 +139,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className='hidden items-center lg:flex lg:flex-row gap-8 text-xl max-xl:text-lg text-white font-medium max-lg:text-lg max-xl:gap-6 relative'>
+        <div className='hidden items-center lg:flex lg:flex-row gap-8 text-xl max-xl:text-lg text-black font-medium max-lg:text-lg max-xl:gap-6 relative'>
           {/* Home Link with Dropdown */}
           <div 
             className="relative group"
@@ -171,7 +149,7 @@ const Header = () => {
             <Link to="/Jain-Jakhotiya/" onClick={handleLinkClick} className="relative group">
               <span className="relative inline-block">
                 Home
-                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
             </Link>
             {dropdownHome && (
@@ -191,7 +169,7 @@ const Header = () => {
             <Link to="/Jain-Jakhotiya/services" onClick={handleLinkClick} className="relative group">
               <span className="relative inline-block">
                 Services
-                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
             </Link>
             {dropdownServices && (
@@ -218,20 +196,10 @@ const Header = () => {
               className="relative group">
               <span className="relative inline-block">
                 {link}
-                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
             </Link>
           ))}
-          {/* Conditional rendering of Sign Up/Profile icon based on login state */}
-          {isLoggedIn ? (
-            <UserProfile setIsLoggedIn={setIsLoggedIn} handleLogout={handleLogout} />
-          ) : (
-            <Link to="/Jain-Jakhotiya/login">
-              <button className='bg-transparent text-white border-[2px] border-white font-semibold text-xl pr-2 pl-2 pt-1 pb-1'>
-                Sign Up
-              </button>
-            </Link>
-          )}
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom'; // Import relevant components
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Footer from './components/Footer';
@@ -22,57 +22,45 @@ import Outsourcing from './components/Services/Outsourcing';
 import CorporateGovernance from './components/Services/CorporateGovernance';
 import ScrollToTop from './components/ScrollToTop';
 import Contact from './components/Navbar/Contact';
-import { HeroBg } from './assets';
+import { HeroBg1, HeroBg2, HeroBg3 } from './assets';
 import Home from './Home';
-import LoginPage from './components/login/LoginPage';
-import MyProfile from './components/user/MyProfile';
-import Profile from './components/user/ProfileIntro';
-import EditProfile from './components/user/EditProfile';
-import AdminPanel from './components/user/AdminPanel';
 
 function App() {
   const location = useLocation();
-  const isLoginPage = location.pathname === '/Jain-Jakhotiya/login';
-  const isProfile = location.pathname === '/Jain-Jakhotiya/profile';
-  const isEditProfile = location.pathname === '/Jain-Jakhotiya/edit-profile';
-  const isAdminPanel = location.pathname === '/Jain-Jakhotiya/admin-panel';
+  const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
+
+  const heroBackgrounds = [HeroBg1, HeroBg2, HeroBg3];
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setBackgroundImageIndex(prevIndex => (prevIndex + 1) % heroBackgrounds.length);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, []); 
 
   return (
     <div className='relative overflow-x-clip'>
-      {/* Only render the Header and Hero if not on the login page */}
-      {!isLoginPage && (
-        <div
+      <div
           className='relative z-10 items-center bg-no-repeat bg-cover w-full h-[100vh] mb-16'
           style={{
-            backgroundImage: `url(${HeroBg})`,
+            backgroundImage: `url(${heroBackgrounds[backgroundImageIndex]})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
           }}
         >
-          {isProfile || isEditProfile || isAdminPanel ?
-            <div className=''>
-              <Header />
-              < Profile />
-            </div> 
-           : 
-           <div>
+        <div className="absolute inset-0 bg-heroBlue bg-opacity-70"></div>
+          <div>
             <Header />
             <Hero />
-           </div>
-           
-        }
+          </div>
         </div>
-      )}
 
       <ScrollToTop />
 
       {/* Routes for different pages */}
       <Routes>
-        <Route path="/Jain-Jakhotiya/login" element={<LoginPage />} />
-        <Route path="/Jain-Jakhotiya/profile" element={<MyProfile />} />
-        <Route path="/Jain-Jakhotiya/edit-profile" element={<EditProfile />} />
-        <Route path="/Jain-Jakhotiya/admin-panel" element={<AdminPanel />} />
         <Route path="/Jain-Jakhotiya/" element={<Home />} />
         <Route path="/Jain-Jakhotiya/services" element={<Services />} />
         <Route path="/Jain-Jakhotiya/blogs" element={<Blogs />} />
@@ -91,18 +79,12 @@ function App() {
         <Route path="/Jain-Jakhotiya/services/benefits-of-outsourcing" element={<Outsourcing />} />
         <Route path="/Jain-Jakhotiya/services/corporate-governance" element={<CorporateGovernance />} />
       </Routes>
-
-      {/* Only render the Footer, Links, and ScrollUp if not on the login page */}
-      {!isLoginPage && !isProfile && !isEditProfile && !isAdminPanel && (
-        <>
-          <hr />
-          <Links />
-          <ScrollUp />
-          <Footer />
-        </>
-      )}
-      {/* Only render the Footer if on the profile page */}
-      {(isProfile || isEditProfile || isAdminPanel) && <Footer />}
+      <>
+        <hr />
+        <Links />
+        <ScrollUp />
+        <Footer />
+      </>
     </div>
   );
 }
