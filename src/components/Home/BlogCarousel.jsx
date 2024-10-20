@@ -2,9 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ScrollBar.css';
 import { Blog1, Blog2 } from '../../assets';
+import gsap from 'gsap';
 
 const BlogCarousel = () => {
   const carouselRef = useRef(null);
+  const blogRefs = useRef([]); // Array to store references to each blog container
+  const buttonRef = useRef(null);
+  const animationHasRun = useRef(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const blogs = [
@@ -79,6 +83,50 @@ const BlogCarousel = () => {
     }
   };
 
+  // Animation function to animate blog containers from right to left
+  const animateBlogs = () => {
+    gsap.fromTo(
+      blogRefs.current, 
+      {
+        x: 200, // Start position (off to the right)
+        opacity: 0, // Initially hidden
+      },
+      {
+        x: 0, // End position (in place)
+        opacity: 1, // Fully visible
+        stagger: 0.3, // Stagger each element by 0.3 seconds
+        ease: 'power1.out', // Ease the animation
+        scrollTrigger: {
+          trigger: blogRefs.current,
+          start: 'top 80%', // Animation starts when the element is 80% from the top of the viewport
+          once: true, // Animation happens only once
+      }
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (!animationHasRun.current) {
+      gsap.fromTo(buttonRef.current, {
+        opacity: 0,
+        scale: 0,
+      }, {
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        ease: "power1.out",
+        scrollTrigger: {
+          trigger: buttonRef.current,
+          start: 'top 80%', // Animation starts when the element is 80% from the top of the viewport
+          once: true, // Animation happens only once
+        }
+      });
+      
+      animateBlogs(); // Trigger the animation on mount
+      animationHasRun.current = true;
+    }
+  }, []);
+
   useEffect(() => {
     window.addEventListener('wheel', preventVerticalScroll, { passive: false });
     carouselRef.current?.addEventListener('wheel', handleWheel, { passive: false });
@@ -97,10 +145,11 @@ const BlogCarousel = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {blogs.map(blog => (
+        {blogs.map((blog, index) => (
           <Link key={blog.id} to="/Jain-Jakhotiya/blogs">
             <div
-              className="group min-w-[350px] min-h-[500px] border border-gray-300 rounded-3xl shadow-md bg-white flex flex-col overflow-hidden relative hover:cursor-pointer"
+              className="group min-w-[320px] min-h-[500px] border border-gray-300 rounded-3xl shadow-md bg-white flex flex-col overflow-hidden relative hover:cursor-pointer"
+              ref={(el) => (blogRefs.current[index] = el)} // Assign each blog to the refs array
             >
               {/* Image Section */}
               <div className="relative z-0 overflow-hidden group-hover:scale-105 group-hover:shadow-lg transition-all duration-300 ease-in-out">
@@ -128,9 +177,13 @@ const BlogCarousel = () => {
       </div>
 
       <Link to="/Jain-Jakhotiya/blogs">
-        <button className="bg-white text-buttonBlue border-[1px] border-buttonBlue font-semibold text-xl p-4 transition-transform duration-2000 hover:scale-110 hover:bg-buttonBlue hover:text-white">
-          Discover Blogs
-        </button>
+        <div ref={buttonRef}>
+          <button 
+            className="bg-white text-buttonBlue border-[1px] border-buttonBlue font-semibold text-xl p-4 transition-transform duration-2000 hover:scale-110 hover:bg-buttonBlue hover:text-white"
+          >
+            Discover Blogs
+          </button>
+        </div>
       </Link>
     </div>
   );

@@ -1,15 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Link} from "react-router-dom";
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from "gsap";
+import { Link } from "react-router-dom";
 import { CALogo } from '../assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX, faBars, faCaretDown, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faX, faBars, faCaretDown } from '@fortawesome/free-solid-svg-icons';
 
 const Header = () => {
+  const logoRef = useRef(null);
+  const headerRef = useRef(null);
+  const linkRef = useRef([]); // We will use an array of refs for the links
+  const animationHasRun = useRef(false); // To track if animation has already run
+
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownHome, setDropdownHome] = useState(false);
   const [dropdownServices, setDropdownServices] = useState(false);
-  const [bgClass, setBgClass] = useState('mt-6 bg-transparent');
-  const [topClass, setTopClass] = useState('bg-white rounded-2xl');
+  const [bgClass, setBgClass] = useState('bg-transparent lg:bg-contentbg');
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -18,20 +23,56 @@ const Header = () => {
   const handleScroll = () => {
     if (window.scrollY > 50) {
       setBgClass('bg-white bg-opacity-100 backdrop-blur shadow-2xl');
-      setTopClass('');
     } else {
-      setBgClass('mt-6 bg-transparent');
-      setTopClass('lg:bg-white rounded-2xl');
+      setBgClass('bg-transparent lg:bg-white');
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    if (!animationHasRun.current) {
+      // GSAP animations for the header and logo
+      gsap.fromTo(headerRef.current, {
+        opacity: 0,
+        y: -70,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        ease: "power1.out",
+      });
 
+      gsap.fromTo(logoRef.current, {
+        opacity: 0,
+        x: -60,
+      }, {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: "power1.out",
+      });
+
+      // GSAP animation for the nav links (staggered animation)
+      if (linkRef.current.length > 0) {
+        gsap.fromTo(linkRef.current, {
+          opacity: 0,
+          x: 70,
+        }, {
+          opacity: 1,
+          x: 0,
+          stagger: 0.15, // Stagger delay for each link
+          duration: 0.4,
+          ease: "power1.out",
+        });
+      }
+
+      animationHasRun.current = true; // Mark the animation as having run
+    }
+
+    window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, []); // Empty dependency array ensures this only runs once after the component mounts
 
   const handleLinkClick = () => {
     if (isOpen) {
@@ -42,23 +83,25 @@ const Header = () => {
   };
 
   return (
-    <section className={`text-black h-20 flex justify-center w-full items-center fixed z-50 transition-all duration-300 ${bgClass}`}>
-      <div className={`flex justify-between items-center max-w-800px w-[80%] max-2xl:w-[85%] max-xl:w-[90%] max-1075px:w-[95%] gap-8 pt-4 pb-4 pr-10 text-secondary ${topClass}`}>
-        
-        <div className='max-lg:bg-white max-lg:rounded-2xl'>
-          <img src={CALogo} alt="CA Logo" className='w-32 h-16 rounded-2xl' />
+    <section className={`text-black h-20 flex justify-center w-full items-center fixed z-50 transition-all duration-300 ${bgClass}`} ref={headerRef}>
+      <div 
+        className={`flex justify-between items-center max-w-800px w-[80%] max-2xl:w-[85%] max-xl:w-[90%] max-1075px:w-[95%] max-md:w-full gap-8 pt-1 pb-1 pl-20 max-sm:pl-4 pr-20 max-sm:pr-4 text-secondary`} 
+      >
+        <div className='max-lg:bg-white max-lg:rounded-2xl px-4 py-1' ref={logoRef}>
+          <img src={CALogo} alt="CA Logo" className='w-24 h-16 rounded-2xl' />
         </div>
 
         <div className='flex gap-6'>
           <button 
             onClick={toggleNavbar} 
             className='lg:hidden p-2 bg-black w-10 rounded'>
-            {isOpen ? <FontAwesomeIcon icon={faX}/> : <FontAwesomeIcon icon={faBars}/>}
+            {isOpen ? <FontAwesomeIcon icon={faX}/> : <FontAwesomeIcon icon={faBars}/> }
           </button>
         </div>
 
-        <div className={`fixed top-0 right-0 z-50 h-full w-4/5 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
-          <div className='flex h-screen flex-col p-4 items-end gap-4 bg-navbarGradient border-l-2 border-customBlack pr-11'>
+        {/* Mobile Navbar */}
+        <div className={`fixed -right-7 z-50 h-full w-4/5 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
+          <div className='flex h-screen flex-col p-4 items-end gap-4 bg-navbarGradient border-l-2 border-customBlack pr-12'>
             <button onClick={toggleNavbar} className='self-end p-2 w-10 bg-black rounded mb-4 '><FontAwesomeIcon icon={faX} /></button>
 
             {/* Home with Dropdown */}
@@ -132,13 +175,16 @@ const Header = () => {
                 key={link} 
                 to={`/Jain-Jakhotiya/${link.toLowerCase().replace(/\s+/g, '-')}`} 
                 onClick={handleLinkClick} 
-                className="nav-link mb-2 text-white text-end text-2xl font-semibold">
+                className="nav-link mb-2 text-white text-end text-2xl font-semibold"
+                ref={(el) => linkRef.current.push(el)}  // Reference each link element
+              >
                 {link}
               </Link>
             ))}
           </div>
         </div>
 
+        {/* Desktop Navbar */}
         <div className='hidden items-center lg:flex lg:flex-row gap-8 text-xl max-xl:text-lg text-black font-medium max-lg:text-lg max-xl:gap-6 relative'>
           {/* Home Link with Dropdown */}
           <div 
@@ -147,7 +193,7 @@ const Header = () => {
             onMouseLeave={() => setDropdownHome(false)}
           >
             <Link to="/Jain-Jakhotiya/" onClick={handleLinkClick} className="relative group">
-              <span className="relative inline-block">
+              <span className="relative inline-block" ref={(el) => linkRef.current.push(el)}>
                 Home
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
@@ -167,13 +213,13 @@ const Header = () => {
             onMouseLeave={() => setDropdownServices(false)}
           >
             <Link to="/Jain-Jakhotiya/services" onClick={handleLinkClick} className="relative group">
-              <span className="relative inline-block">
+              <span className="relative inline-block" ref={(el) => linkRef.current.push(el)}>
                 Services
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
             </Link>
             {dropdownServices && (
-              <div className="absolute left-1/2 mt-2 w-64 bg-navdropdown text-white shadow-2xl z-10 transition-all duration-300 ease-in-out transform -translate-x-1/2 scale-100 opacity-100">
+              <div className="absolute left-1/2 mt-2 w-64 bg-navdropdown text-white shadow-2xl z-50 transition-all duration-300 ease-in-out transform -translate-x-1/2 scale-100 opacity-100">
                 <div className="absolute left-1/2 -top-2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-navdropdown transform -translate-x-1/2" />
                 {['Income Tax', 'Goods & Service Tax(GST)', 'Audit', 'Corporate Services', 'Value Added Tax(VAT)', 'Service Tax', 'Corporate Finance', 'Accounting Services', 'Benefits Of Outsourcing', 'Corporate Governance'].map((service) => (
                   <Link 
@@ -193,7 +239,9 @@ const Header = () => {
               key={link} 
               to={`/Jain-Jakhotiya/${link.toLowerCase().replace(/\s+/g, '-')}`} 
               onClick={handleLinkClick} 
-              className="relative group">
+              className="relative group"
+              ref={(el) => linkRef.current.push(el)}  // Reference each link element
+            >
               <span className="relative inline-block">
                 {link}
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />

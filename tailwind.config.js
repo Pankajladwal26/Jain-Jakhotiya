@@ -58,10 +58,14 @@ export default {
       textShadow: {
         'glow': `0 0 5px rgba(245, 245, 220, 0.6), 0 0 10px rgba(245, 245, 220, 0.4)`,
       },
+      clipPath: {
+        'navClip': 'polygon(0 0, 100% 0, 95% 100%, 5% 100%)',
+      },
     },
   },
   plugins: [
     require('tailwindcss-textshadow'),
+    require('tailwind-clip-path'),
   ],
 }
 

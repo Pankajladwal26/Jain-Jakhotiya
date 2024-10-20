@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -24,14 +24,24 @@ import ScrollToTop from './components/ScrollToTop';
 import Contact from './components/Navbar/Contact';
 import { HeroBg1, HeroBg2, HeroBg3 } from './assets';
 import Home from './Home';
+import gsap from 'gsap';
 
 function App() {
+  const heroRef = useRef(null);
   const location = useLocation();
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
 
   const heroBackgrounds = [HeroBg1, HeroBg2, HeroBg3];
 
   useEffect(() => {
+    gsap.fromTo(heroRef.current, {
+      opacity: 0,
+    }, {
+      opacity: 1,
+      duration: 1,
+      ease: "power1.out",
+    });
+
     const intervalId = setInterval(() => {
       setBackgroundImageIndex(prevIndex => (prevIndex + 1) % heroBackgrounds.length);
     }, 5000);
@@ -42,20 +52,21 @@ function App() {
   return (
     <div className='relative overflow-x-clip'>
       <div
-          className='relative z-10 items-center bg-no-repeat bg-cover w-full h-[100vh] mb-16'
+          className='relative z-0 items-center bg-no-repeat bg-cover w-full h-[80vh] mb-16'
           style={{
             backgroundImage: `url(${heroBackgrounds[backgroundImageIndex]})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
           }}
+          ref={heroRef}
         >
-        <div className="absolute inset-0 bg-heroBlue bg-opacity-70"></div>
-          <div>
-            <Header />
-            <Hero />
-          </div>
+        <div className="absolute inset-0 bg-heroBlue bg-opacity-80"></div>
+        <div>
+          <Header />
+          <Hero />
         </div>
+      </div>
 
       <ScrollToTop />
 
