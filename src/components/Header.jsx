@@ -83,12 +83,12 @@ const Header = () => {
   };
 
   return (
-    <section className={`text-black h-20 flex justify-center w-full items-center fixed z-50 transition-all duration-300 ${bgClass}`} ref={headerRef}>
+    <section className={`text-black h-16 flex justify-center w-full items-center fixed z-50 transition-all duration-300 ${bgClass}`} ref={headerRef}>
       <div 
-        className={`flex justify-between items-center max-w-800px w-[80%] max-2xl:w-[85%] max-xl:w-[90%] max-1075px:w-[95%] max-md:w-full gap-8 pt-1 pb-1 pl-20 max-sm:pl-4 pr-20 max-sm:pr-4 text-secondary`} 
+        className={`flex justify-between items-center max-w-800px w-[80%] max-2xl:w-[85%] max-xl:w-[90%] max-1075px:w-[95%] max-md:w-full gap-8 pl-20 max-sm:pl-4 pr-20 max-sm:pr-4 text-secondary`} 
       >
         <div className='max-lg:bg-white max-lg:rounded-2xl px-4 py-1' ref={logoRef}>
-          <img src={CALogo} alt="CA Logo" className='w-24 h-16 rounded-2xl' />
+          <img src={CALogo} alt="CA Logo" className='w-20 h-14 rounded-2xl' />
         </div>
 
         <div className='flex gap-6'>
@@ -193,7 +193,7 @@ const Header = () => {
             onMouseLeave={() => setDropdownHome(false)}
           >
             <Link to="/Jain-Jakhotiya/" onClick={handleLinkClick} className="relative group">
-              <span className="relative inline-block" ref={(el) => linkRef.current.push(el)}>
+              <span className="relative inline-block text-base" ref={(el) => linkRef.current.push(el)}>
                 Home
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
@@ -201,7 +201,7 @@ const Header = () => {
             {dropdownHome && (
               <div className="absolute left-1/2 mt-2 w-48 bg-navdropdown text-white shadow-2xl z-10 transition-all duration-300 ease-in-out transform -translate-x-1/2 scale-100 opacity-100">
                 <div className="absolute left-1/2 -top-2 w-0 h-0 border-l-8 border-r-8 border-b-8 border-transparent border-b-navdropdown transform -translate-x-1/2" />
-                <Link to="/Jain-Jakhotiya/aboutus" onClick={handleLinkClick} className="block py-4 px-4 font-semibold text-lg text-start hover:bg-white hover:text-black transition-colors duration-200">About Us</Link>
+                <Link to="/Jain-Jakhotiya/aboutus" onClick={handleLinkClick} className="block py-3 px-3 font-semibold text-base text-start hover:bg-white hover:text-black transition-colors duration-200">About Us</Link>
               </div>
             )}
           </div>
@@ -213,7 +213,7 @@ const Header = () => {
             onMouseLeave={() => setDropdownServices(false)}
           >
             <Link to="/Jain-Jakhotiya/services" onClick={handleLinkClick} className="relative group">
-              <span className="relative inline-block" ref={(el) => linkRef.current.push(el)}>
+              <span className="relative inline-block text-base" ref={(el) => linkRef.current.push(el)}>
                 Services
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
@@ -226,7 +226,7 @@ const Header = () => {
                     key={service} 
                     to={`/Jain-Jakhotiya/services/${service.toLowerCase().replace(/ & /g, '-').replace(/\s+/g, '-')}`} 
                     onClick={handleLinkClick} 
-                    className="block py-4 px-4 font-semibold hover:bg-white hover:text-black text-lg text-start transition-colors duration-200 border-b border-text">
+                    className="block py-3 px-3 font-semibold hover:bg-white hover:text-black text-base text-start transition-colors duration-200 border-b border-text">
                     {service}
                   </Link>
                 ))}
@@ -242,7 +242,7 @@ const Header = () => {
               className="relative group"
               ref={(el) => linkRef.current.push(el)}  // Reference each link element
             >
-              <span className="relative inline-block">
+              <span className="relative inline-block text-base">
                 {link}
                 <span className="absolute left-0 bottom-0 h-0.5 w-full bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
               </span>
