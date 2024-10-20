@@ -27,47 +27,66 @@ import Home from './Home';
 import gsap from 'gsap';
 
 function App() {
-  const heroRef = useRef(null);
   const location = useLocation();
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
 
   const heroBackgrounds = [HeroBg1, HeroBg2, HeroBg3];
 
+  const bgImageRef = useRef(null);
+
   useEffect(() => {
-    gsap.fromTo(heroRef.current, {
-      opacity: 0,
-    }, {
-      opacity: 1,
-      duration: 1,
-      ease: "power1.out",
-    });
+    
+    gsap.fromTo(bgImageRef.current,
+      { scale: 1 },
+      { scale: 1.1, duration: 7, ease: 'power2.inOut' }
+    );
 
     const intervalId = setInterval(() => {
-      setBackgroundImageIndex(prevIndex => (prevIndex + 1) % heroBackgrounds.length);
+      const newIndex = (backgroundImageIndex + 1) % heroBackgrounds.length;
+
+      gsap.fromTo(bgImageRef.current,
+        { scale: 1 },
+        { scale: 1.1, duration: 7, ease: 'power2.inOut' }
+      );
+
+      setBackgroundImageIndex(newIndex);
+
+      gsap.fromTo(bgImageRef.current,
+        { scale: 1 },
+        { scale: 1.1, duration: 7, ease: 'power2.inOut' }
+      );
     }, 5000);
 
     return () => clearInterval(intervalId);
-  }, []); 
+  }, [backgroundImageIndex]);
 
   return (
     <div className='relative overflow-x-clip'>
-      <div
-          className='relative z-0 items-center bg-no-repeat bg-cover w-full h-[80vh] mb-16'
+      {/* Hero Section with Background Image */}
+      <div className='relative overflow-hidden z-50 w-full h-[80vh] mb-16'>
+        {/* Background image positioned absolutely */}
+        <div
+          ref={bgImageRef}
+          className='absolute inset-0 bg-no-repeat bg-cover w-full h-full'
           style={{
             backgroundImage: `url(${heroBackgrounds[backgroundImageIndex]})`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
+            objectFit: 'cover',
+            objectPosition: 'center',
           }}
-          ref={heroRef}
         >
-        <div className="absolute inset-0 bg-heroBlue bg-opacity-80"></div>
-        <div>
+          {/* Optional overlay to darken the background */}
+          <div className="absolute inset-0 bg-heroBlue bg-opacity-80"></div>
+        </div>
+        <div className="relative z-20">
           <Header />
           <Hero />
         </div>
       </div>
 
+      {/* ScrollToTop and other page routes */}
       <ScrollToTop />
 
       {/* Routes for different pages */}
@@ -90,12 +109,12 @@ function App() {
         <Route path="/Jain-Jakhotiya/services/benefits-of-outsourcing" element={<Outsourcing />} />
         <Route path="/Jain-Jakhotiya/services/corporate-governance" element={<CorporateGovernance />} />
       </Routes>
-      <>
-        <hr />
-        <Links />
-        <ScrollUp />
-        <Footer />
-      </>
+
+      {/* Footer, Links, ScrollUp */}
+      <hr />
+      <Links />
+      <ScrollUp />
+      <Footer />
     </div>
   );
 }

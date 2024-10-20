@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { Performancebg } from '../../assets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandshake, faLightbulb } from '@fortawesome/free-regular-svg-icons';
@@ -6,14 +6,28 @@ import { faCity, faNetworkWired } from '@fortawesome/free-solid-svg-icons';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger); // Only register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Performance = () => {
   const divRef = useRef(null);
   const animationHasRun = useRef(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Set the target numbers for the animation
-  const numbers = [1234, 123, 12, 28]; 
+  const numbers = [1234, 123, 12, 28];
+
+  // Detect screen size changes
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Initial check
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     if (!animationHasRun.current) {
@@ -27,25 +41,24 @@ const Performance = () => {
         ease: 'power1.out',
         scrollTrigger: {
           trigger: divRef.current,
-          start: 'top 80%', // Animation starts when the element is 80% from the top of the viewport
-          once: true, // Animation happens only once
+          start: 'top 80%',
+          once: true,
         },
       });
 
-      // Animate the numbers when the element comes into view
       numbers.forEach((num, index) => {
         const element = divRef.current.querySelectorAll('.number')[index];
 
         gsap.to(element, {
           innerHTML: num,
           delay: 0.4,
-          duration: 2, // Adjust duration as necessary
+          duration: 2,
           ease: 'power2.out',
-          snap: { innerHTML: 1 }, // Snap to 1 to make the count increment properly
+          snap: { innerHTML: 1 },
           scrollTrigger: {
             trigger: element,
-            start: 'top 100%', // Animation starts when the element is 80% from the top of the viewport
-            once: true, // Animation happens only once
+            start: 'top 100%',
+            once: true,
           },
         });
       });
@@ -55,13 +68,14 @@ const Performance = () => {
   }, []);
 
   return (
-    <div className='flex justify-center h-[500px] max-md:h-[800px] items-center w-full mb-28'
+    <div
+      className='flex justify-center h-[500px] max-md:h-[800px] items-center w-full mb-28'
       style={{
         backgroundImage: `url(${Performancebg})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        clipPath: 'polygon(0 22%, 100% 0, 100% 81%, 0 100%)',
+        clipPath: isMobile ? 'polygon(0 6%, 100% 0, 100% 95%, 0% 100%)' : 'polygon(0 20%, 100% 0, 100% 83%, 0 100%)',
       }}
       ref={divRef}
     >

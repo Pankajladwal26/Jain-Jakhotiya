@@ -65,7 +65,6 @@ export default {
   },
   plugins: [
     require('tailwindcss-textshadow'),
-    require('tailwind-clip-path'),
   ],
 }
 
