@@ -14,7 +14,7 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownHome, setDropdownHome] = useState(false);
   const [dropdownServices, setDropdownServices] = useState(false);
-  const [bgClass, setBgClass] = useState('bg-transparent lg:bg-contentbg');
+  const [bgClass, setBgClass] = useState('bg-white');
 
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
@@ -24,7 +24,7 @@ const Header = () => {
     if (window.scrollY > 50) {
       setBgClass('bg-white bg-opacity-100 backdrop-blur shadow-2xl');
     } else {
-      setBgClass('bg-transparent lg:bg-white');
+      setBgClass('bg-white');
     }
   };
 
@@ -100,7 +100,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Navbar */}
-        <div className={`fixed -right-7 z-50 h-full w-4/5 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
+        <div className={`fixed -right-7 z-50 h-full max-sm:w-full w-4/5 transition-transform duration-300 transform ${isOpen ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}>
           <div className='flex h-screen flex-col p-4 items-end gap-4 bg-navbarGradient border-l-2 border-customBlack pr-12'>
             <button onClick={toggleNavbar} className='self-end p-2 w-10 bg-black rounded mb-4 '><FontAwesomeIcon icon={faX} /></button>
 

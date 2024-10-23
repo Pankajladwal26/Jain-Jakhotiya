@@ -29,7 +29,7 @@ export default {
         discover: "#F5F5DC",
         heroBlue: "#055AA8",
         buttonBlue: "#3190E7",
-        green: "#28cb75",
+        green: "#32cd32",
       },
       spacing: {
         '10rem': '10rem',
